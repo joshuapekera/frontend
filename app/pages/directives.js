@@ -357,4 +357,58 @@ angular.module('app').
         };
       }
     };
+  }]).directive('pieChart', ['$window', '$compile', function ($window, $compile) {
+    return {
+      restrict: "E",
+      scope: {
+        data: '='
+      },
+      link: function (scope, element, attrs) {
+
+        scope.$watch('data', function (newValue, oldValue, scope) {
+          // guard clause if there is no value yet
+          if (!newValue) {return};
+          var el = element[0];
+          var color = d3.scale.category10();
+          var width = el.clientWidth;
+          var height = 440;
+          var min = Math.min(width, height); // get the smallest value to appropriately size the donut chart
+          var pie = d3.layout.pie().sort(null).value(function (data) { return (data.open + data.paid_out) });
+          var arc = d3.svg.arc()
+            .outerRadius(min/2 * 0.9) // make the radius fit in the smallest dimension
+            .innerRadius(min/2 * 0.3)
+          var svg = d3.select(element[0])
+            .append("svg").attr({width: min, height: min})
+          var g = svg.append('g')
+
+            g.selectAll('path').data(pie(newValue))
+              .enter().append('path')
+              // .on('click', function (d, i) {
+              //   console.log("fuck you");
+              //   // this.setAttribute('popover', 'hi there');
+              //   $compile(el)(scope);
+              // })
+              // .on('mouseenter', function (d, i) {
+              // })
+              .style('stroke', 'white')
+              .attr('d', arc)
+              .attr('popover', "fuck you")
+              .attr('body', true)
+              .attr('fill', function(d, i){ return color(i) });
+
+          $compile(el)(scope);
+
+          scope.$watch(function () {return el.clientWidth * el.clientHeight}, function (newValue, oldValue, scope) {
+            width = el.clientWidth;
+            height = el.clientWidth;
+            min = Math.min(width, height);
+            svg.attr({width: min, height: min})
+            arc.outerRadius(min/2 * 0.9).innerRadius(min/2 * 0.3);
+            svg.selectAll('path').attr('d', arc);
+            g.attr('transform', 'translate('+min/2+','+min/2+")")
+          });
+        });
+      }
+    };
   }]);
+

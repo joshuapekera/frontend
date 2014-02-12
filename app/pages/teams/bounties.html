@@ -22,8 +22,8 @@
         </div>
       </div>
 
-      <div ng-show="bounties_resolved">
-        <div ng-show="open_bounties.length > 0">
+      <div class="row-fluid" ng-show="bounties_resolved">
+        <div class="span6" ng-show="open_bounties.length > 0">
           <h3 class="no-margin">Bounty Summary</h3>
           <table class="table table-condensed table-striped">
             <thead>
@@ -50,7 +50,11 @@
             </tbody>
           </table>
         </div>
+        <div class="span6">
+          <pie-chart data="stats" class="donut-chart"></pie-chart>
+        </div>
       </div>
+
       <div ng-show="open_bounties">
         <h3 class="no-margin">Open Bounties</h3>
         <table class="table table-condensed table-striped table-hover issue-table">
@@ -93,6 +97,7 @@
           </tbody>
         </table>
       </div>
+
       <div ng-show="claimed_bounties.length > 0">
         <h3 class="no-margin">Claimed Bounties</h3>
         <p>Bounties posted by {{team.name}} that have been claimed by developers.</p>
@@ -124,6 +129,7 @@
           </tbody>
         </table>
       </div>
+
       <div ng-show="!claimed_bounties && !open_bounties && bounties_resolved">
         <h4>There are no bounties associated with this team</h4>
       </div>

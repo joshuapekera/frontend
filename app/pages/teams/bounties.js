@@ -8,7 +8,12 @@ angular.module('app')
         controller: 'BaseTeamController'
       });
   })
-  .controller('TeamBountiesController', function ($scope, $routeParams, $api) {
+  .controller('TeamBountiesController', function ($scope, $routeParams, $api, $window) {
+    //  watch the window for changes to resize the piechart
+    angular.element($window).bind('resize', function () {
+      $scope.$apply();
+    });
+
     $scope.bounties_resolved = false;
 
     $scope.summary_sort = {
@@ -60,9 +65,9 @@ angular.module('app')
     }
 
     $api.team_bounties($routeParams.id).then(function(bounties) {
+      $scope.bounties = bounties;
       // build stats map for summary table; NB: possibly faster on the backend
       $scope.stats_map = {};
-
       var claimed_bounties = [];
       var open_bounties = [];
       var total_paid_out = 0;

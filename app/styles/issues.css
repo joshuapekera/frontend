@@ -85,3 +85,10 @@ td img.issue-table-tracker-img {
   max-height:20px;
   max-width:20px;
 }
+
+.donut-chart {
+  width: 100%;
+  height: 100%;
+  display: block;
+  float: left;
+}
