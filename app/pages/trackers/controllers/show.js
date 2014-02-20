@@ -45,7 +45,7 @@ angular.module('app')
               $scope.open_bounties++;
             }
             // sorting doesn't like nulls.. this is a quick hack
-            issues[i].participants_count = issues[i].participants_count || 0;
+            issues[i].remote_participants_count = issues[i].remote_participants_count || 0;
             issues[i].thumbs_up_count = issues[i].thumbs_up_count || 0;
             issues[i].comment_count = issues[i].comment_count || 0;
           }
