@@ -9,7 +9,7 @@ angular.module('app')
         reloadOnSearch: false
       });
   })
-  .controller('TrackerShow', function ($scope, $routeParams, $location, $api, $pageTitle, $timeout) {
+  .controller('TrackerShow', function ($scope, $routeParams, $location, $api, $pageTitle, $timeout, Slug) {
     $api.tracker_get($routeParams.id).then(function(tracker) {
       // Edge case: GitHub repo changes owner, and we create a new Tracker model.
       // If the requested tracker model has a redirect to another, change the URL to that tracker.
@@ -48,6 +48,7 @@ angular.module('app')
             issues[i].remote_participants_count = issues[i].remote_participants_count || 0;
             issues[i].thumbs_up_count = issues[i].thumbs_up_count || 0;
             issues[i].comment_count = issues[i].comment_count || 0;
+            issues[i].slug = issues[i].id + '-' + Slug.slugify(issues[i].title);
           }
           $scope.issues = issues;
           return issues;

@@ -9,6 +9,7 @@
     "angular-bootstrap": "~0.3.0",
     "angular-sanitize": "~1.0.7",
     "angular-cookies": "~1.0.7",
+    "angular-slugify": "~1.0.0",
     "bootstrap": "~2.3.2",
     "momentjs": "~2.1.0",
     "angular-bootstrap-colorpicker": "~2.0.2",
